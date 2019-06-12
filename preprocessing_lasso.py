@@ -47,7 +47,7 @@ if __name__ == '__main__':
     '''.format(os.path.splitext(os.path.basename(__file__))[0], __version__, __author__, __email__, __copyright__)
     parser = argparse.ArgumentParser(description=descr, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('-o', '--out', required=True, help='path to the output directory.')
-    parser.add_argument('input', help='path to the unaligned amino acid sequences to predict fasta file.')
+    parser.add_argument('input', help='path to the fasta file. The file contains unaligned amino acid sequences of HIV-1 env of which phenotropism have to be predicted.')
     args = parser.parse_args()
 
     # create result directory
@@ -82,7 +82,7 @@ if __name__ == '__main__':
         muscle_cmd = MuscleCommandline(input=fasta_to_align_path, out=aln_path)
         stdout, stderr = muscle_cmd()
 
-        # cut the alignment on the referrence length
+        # cut the alignment on the reference length
         alignment = AlignIO.read(aln_path, 'fasta')
         cut_start = None
         cut_end = None
