@@ -25,7 +25,7 @@ optional arguments:
   -o OUT, --out OUT  path to the output directory.
 
 ```
-The output directory will contain subdirectories, one by sequence provided in the input fasta file. In each subdirectories, 2 CSV files which are the inputs for the MatLab script:
+The output directory will contain subdirectories, one by sequence provided in the input fasta file. In each subdirectory (<fasta_seq_id>), 2 CSV files which are the inputs for the MatLab script:
  - <fasta_seq_id>_to_predict.csv
  - <fasta_seq_id>_to_train.csv
  
