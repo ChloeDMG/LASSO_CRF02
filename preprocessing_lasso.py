@@ -7,8 +7,10 @@ import re
 import shutil
 from Bio import SeqIO
 from Bio.Align.Applications import MuscleCommandline
+from Bio import AlignIO
 import aa_alignment_utilities as util_aln
 import aa_sequences_utilities as util_seq
+
 
 __author__ = 'Nicolas JEANNE'
 __copyright__ = 'GNU General Public License'
@@ -79,6 +81,25 @@ if __name__ == '__main__':
         aln_path = os.path.join(tmp, '{}_aln.fa'.format(seq_to_predict_id))
         muscle_cmd = MuscleCommandline(input=fasta_to_align_path, out=aln_path)
         stdout, stderr = muscle_cmd()
+
+        # cut the alignment on the referrence length
+        alignment = AlignIO.read(aln_path, 'fasta')
+        cut_start = None
+        cut_end = None
+        for i, seqrecord in enumerate(alignment):
+            if seqrecord.id == 'reference':
+                aln_ref_seq = seqrecord.seq
+                cut_start = 0
+                cut_end = len(aln_ref_seq) - 1
+                # look for the first position which is not a gap in the alignment
+                while aln_ref_seq[cut_start] == '-':
+                    cut_start += 1
+                # look for the first position which is not a gap in the alignment starting from the end
+                while aln_ref_seq[cut_end] == '-':
+                    cut_end -= 1
+                break
+        # cut on the positions which are not only gaps at the begining and the end of the alignment
+        AlignIO.write(alignment[:, cut_start:cut_end+1], aln_path, 'fasta')
 
         # extract info from the alignment
         aln_pos_numbering = None
