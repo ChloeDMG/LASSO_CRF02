@@ -8,7 +8,7 @@ The phenotropism prediction is done in 2 steps:
 
 ## Pre-processing the amino acids sequences
 
-In this step a fasta file containing the amino acids sequences of *env* HIV-1 CRF02-AG subtypes are provided as input to the Python 3 script, `preprocessing_lasso.py`. The scripts requires the [BioPython](https://biopython.org/) library.
+In this step a fasta file containing the amino acids sequences of *env* HIV-1 CRF02-AG subtypes are provided as input to the Python 3 script, `preprocessing_lasso.py`. The script requires the [BioPython](https://biopython.org/) library.
 
 Usage is:
 
